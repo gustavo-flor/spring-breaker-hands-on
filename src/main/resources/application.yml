@@ -1,0 +1,60 @@
+server:
+  port: 8080
+  shutdown: graceful
+spring:
+  application:
+    name: spring-breaker-hands-on
+  cloud:
+    openfeign:
+      client:
+        config:
+          via-cep-client:
+            url: https://viacep.com.br/
+            logger-level: full
+          brasil-api-client:
+            url: https://brasilapi.com.br/
+            logger-level: full
+resilience4j:
+  circuitbreaker:
+    instances:
+      find-address-by-cep-circuit-breaker:
+        register-health-indicator: true
+        failure-rate-threshold: 50
+        slow-call-rate-threshold: 100
+        slow-call-duration-threshold: 30000 # millis
+        permitted-number-of-calls-in-half-open-state: 10
+        max-wait-duration-in-half-open-state: 0s
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 100
+        minimum-number-of-calls: 10
+        wait-duration-in-open-state: 60s
+        automatic-transition-from-open-to-half-open-enabled: false
+        ignore-exceptions:
+          - feign.FeignException.NotFound
+          - feign.FeignException.BadRequest
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
+      base-path: /
+  health:
+    circuitbreakers:
+      enabled: true
+    diskspace:
+      enabled: false
+    ping:
+      enabled: false
+    refresh:
+      enabled: false
+springdoc:
+  swagger-ui:
+    path: /
+  show-actuator: true
+logging:
+  level:
+    com.github.gustavoflor.sbho.client.brasilapi.BrasilAPIClient: DEBUG
+    com.github.gustavoflor.sbho.client.viacep.ViaCEPClient: DEBUG

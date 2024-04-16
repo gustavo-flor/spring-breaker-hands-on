@@ -1,0 +1,80 @@
+{
+  "uuid": "35367f24-706d-41b6-9008-3a4279462b8f",
+  "lastMigration": 32,
+  "name": "Brasil API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "ba90bdae-4d97-4740-a9ad-eca2b6177d29",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/cep/v1/:cep",
+      "responses": [
+        {
+          "uuid": "59cb77e6-3646-4c87-a05a-f3948898dda4",
+          "body": "{\n  \"cep\": \"{{urlParam 'cep'}}\",\n  \"street\": \"{{faker 'location.streetAddress'}}\",\n  \"neighborhood\": \"{{faker 'company.name'}}\",\n  \"city\": \"{{faker 'location.city'}}\",\n  \"state\": \"{{faker 'location.stateAbbr'}}\",\n  \"service\": \"correios-alt\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "ba90bdae-4d97-4740-a9ad-eca2b6177d29"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

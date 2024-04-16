@@ -1,0 +1,161 @@
+{
+  "uuid": "9bf7905b-11ad-4947-96af-84a03136a8bf",
+  "lastMigration": 32,
+  "name": "Via CEP",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "af45a81b-5f11-4849-b519-5c76eed85021",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "ws/:cep/json",
+      "responses": [
+        {
+          "uuid": "f4ec960b-6179-49bd-b22c-72c8954f9377",
+          "body": "{\n  \"cep\": \"{{urlParam 'cep'}}\",\n  \"logradouro\": \"{{faker 'location.streetAddress'}}\",\n  \"complemento\": \"\",\n  \"bairro\": \"{{faker 'company.name'}}\",\n  \"localidade\": \"{{faker 'location.city'}}\",\n  \"uf\": \"{{faker 'location.stateAbbr'}}\",\n  \"ibge\": \"{{faker 'datatype.number'}}\",\n  \"gia\": \"\",\n  \"ddd\": \"{{faker 'number.int' min=1 max=99}}\",\n  \"siafi\": \"{{faker 'datatype.number'}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "64a6c11f-2aa8-427d-b7ef-394094886a0f",
+          "body": "{\n  \"message\": \"Bad Request\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "cep",
+              "value": "^.+400$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "5b45e98f-555e-4406-b438-3a16904daa7a",
+          "body": "{\n  \"message\": \"Not Found\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "cep",
+              "value": "^.+404$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "e1f122d9-ddfe-4b9d-9cd2-2b59b7209f69",
+          "body": "{\n  \"message\": \"Internal Server Error\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "cep",
+              "value": "^.+500$",
+              "invert": false,
+              "operator": "regex"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "af45a81b-5f11-4849-b519-5c76eed85021"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

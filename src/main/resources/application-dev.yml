@@ -1,0 +1,12 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    openfeign:
+      client:
+        config:
+          via-cep-client:
+            url: http://localhost:3000
+          brasil-api-client:
+            url: http://localhost:3001
