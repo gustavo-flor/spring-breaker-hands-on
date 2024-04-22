@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface BrasilAPIClient {
 
     @GetMapping("/api/cep/v1/{cep}")
-    AddressDTO findByCEP(@PathVariable String cep);
+    BrasilAPIAddressDTO findByCEP(@PathVariable String cep);
 
 }
